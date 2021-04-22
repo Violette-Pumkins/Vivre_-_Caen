@@ -1,4 +1,7 @@
 <?php
+
+use Facebook\Exceptions\FacebookSDKException;
+use Facebook\Exceptions\FacebookResponseException;
 // Include configuration file
 require_once 'config.php';
 

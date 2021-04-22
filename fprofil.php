@@ -51,7 +51,7 @@ $(document).ready(function(){
 
 <?php
 
-if ($_SESSION[email] == TRUE) {
+if ($_SESSION['email'] == TRUE) {
 $user = $connection->query("SELECT * FROM users WHERE email = '$_SESSION[email]'");
 $userdata = $user->fetch_array(MYSQLI_ASSOC);
 }
@@ -104,7 +104,8 @@ $inpuTitre ="test";
 						</div>
 						<div class="row">
 							<div class="col p-static">
-								<h1 data-title-border>User Profile</h1>
+								<h1 data-title-border>User Profile</h1>
+
 							</div>
 						</div>
 					</div>

@@ -6,14 +6,14 @@
  * @url        http://www.codexworld.com 
  * @license    http://www.codexworld.com/license 
  */ 
- 
+
 class User { 
     private $dbHost     = DB_HOST; 
     private $dbUsername = DB_USERNAME; 
     private $dbPassword = DB_PASSWORD; 
     private $dbName     = DB_NAME; 
     private $userTbl    = DB_USER_TBL; 
-     
+
     function __construct(){ 
         if(!isset($this->db)){ 
             // Connect to the database 

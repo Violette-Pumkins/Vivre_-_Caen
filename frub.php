@@ -175,7 +175,7 @@ setlocale(LC_TIME, "fr_FR");
 $query = $connection->query("SELECT * FROM article WHERE categorie = '$_GET[id]'");
 while($row = $query->fetch_assoc()){ 
 
-$date1 = date($row[publication]); 
+$date1 = date($row['publication']); 
 ?>
 
 									<article class="post post-medium">
@@ -189,8 +189,8 @@ $date1 = date($row[publication]);
 										</div>
 										<div class="col-lg-7">
 											<div class="post-content">
-												<h2 class="font-weight-semibold pt-4 pt-lg-0 text-5 line-height-4 mb-2"><a href="blog-post.html"><?php echo $row[titre]; ?></a></h2>
-												<p class="mb-0"><?php echo substr($row[texte], 0, 150) . "...";?> [...]</p>
+												<h2 class="font-weight-semibold pt-4 pt-lg-0 text-5 line-height-4 mb-2"><a href="blog-post.html"><?php echo $row['titre']; ?></a></h2>
+												<p class="mb-0"><?php echo substr($row['texte'], 0, 150) . "...";?> [...]</p>
 											</div>
 										</div>
 									</div>

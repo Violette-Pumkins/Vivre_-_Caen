@@ -1,44 +1,51 @@
-<?php 
-include('config/db.php');
-$connection->set_charset('utf8');
+<?php
+	include('config/db.php');
+	$connection->set_charset('utf8');
 
-function fDate($d) {
-	$y=substr($d,0,4);
-	$m=substr($d,5,2);
-	$c=substr($d,8,2);
-	$date=$c."-".$M."-".$y;
-	return $date;
-}
-
-
-
-	
-	function caractereValideUrl($string, $charset='utf-8') {
-		
-     $string = html_entity_decode($string);
-    $string = htmlentities( $string, ENT_NOQUOTES, $charset );
-    $string = preg_replace( '#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $string );
-    $string = preg_replace( '#&([A-za-z]{2})(?:lig);#', '\1', $string );
-    $string = preg_replace( '#&[^;]+;#', '', $string );
-
-
-		// $string= strtr($string,
-			// "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ",
-			// "aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
-		// Mettez ici les caractères spéciaux qui seraient susceptibles d'apparaître dans les titres. La liste ci-dessous est indicative.
-		$speciaux = array("?","!","@","#","%","&amp;","*","(",")","[","]","=","+"," ",";",":","'",".","_",",");
-		$string = str_replace($speciaux, "-", $string); // Les caractères spéciaux dont les espaces, sont remplacés par un tiret.
-		   // $string = preg_replace('`[^a-z0-9-]+`', '-', $string);
-    $string = preg_replace('`-{2,}`', '-', $string);
-    $string = trim($string, '-');
-		$string = strtolower(strip_tags($string));
-
-		return $string;
+	function fDate($d)
+	{
+		$y=substr($d, 0, 4);
+		$m=substr($d, 5, 2);
+		$c=substr($d, 8, 2);
+		$date=$c."-".$m."-".$y;
+		return $date;
 	}
-	
-	
 
- ?>
+
+
+    /**
+	 * valide les caractères
+	 *
+	 * @param string $string
+	 * @param string $charset
+	 * @return string
+	 */
+    function caractereValideUrl(string $string, $charset='utf-8')
+    {
+        $string = html_entity_decode($string);
+        $string = htmlentities($string, ENT_NOQUOTES, $charset);
+        $string = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $string);
+        $string = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $string);
+        $string = preg_replace('#&[^;]+;#', '', $string);
+
+
+        // $string= strtr($string,
+        // "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ",
+        // "aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
+        // Mettez ici les caractères spéciaux qui seraient susceptibles d'apparaître dans les titres. La liste ci-dessous est indicative.
+        $speciaux = array("?","!","@","#","%","&amp;","*","(",")","[","]","=","+"," ",";",":","'",".","_",",");
+        $string = str_replace($speciaux, "-", $string); // Les caractères spéciaux dont les espaces, sont remplacés par un tiret.
+        // $string = preg_replace('`[^a-z0-9-]+`', '-', $string);
+        $string = preg_replace('`-{2,}`', '-', $string);
+        $string = trim($string, '-');
+        $string = strtolower(strip_tags($string));
+
+        return $string;
+    }
+    
+    
+
+?>
 
 
 
@@ -107,44 +114,43 @@ function fDate($d) {
 
 
 <?php
-include_once "c/header.php";
+	include_once "c/header.php";
 ?>
 
 			<div role="main" class="main pt-3 mt-3">
 				
-				<?php
- switch(@$_GET['o']) {			
-		
-case "login":
-include('content/flogin.php');
-break;
-case "article":
-include('content/farticle.php');
-break;
-case "admin":
-include('content/fadmin.php');
-break;
-case "mag":
-include('content/fmag.php');
-break;
-case "profil":
-include('content/fprofil.php');
-break;
-case "contact":
-include('content/fcontact.php');
-break;
-case "rub":
-include('content/frub.php');
-break;
-case "annonceur":
-include('content/fannonceur.php');
-break;
+<?php
+	switch (@$_GET['o']) {
+			
+	case "login":
+	include('content/flogin.php');
+	break;
+	case "article":
+	include('content/farticle.php');
+	break;
+	case "admin":
+	include('content/fadmin.php');
+	break;
+	case "mag":
+	include('content/fmag.php');
+	break;
+	case "profil":
+	include('content/fprofil.php');
+	break;
+	case "contact":
+	include('content/fcontact.php');
+	break;
+	case "rub":
+	include('content/frub.php');
+	break;
+	case "annonceur":
+	include('content/fannonceur.php');
+	break;
 
-default:
-include('content/findex.php');
-break;	   
-			   
-}
+	default:
+	include('content/findex.php');
+	break;
+	}
 ?>
 
 				
@@ -203,7 +209,7 @@ include_once "c/footer.php";
 			ga('create', 'UA-12345678-1', 'auto');
 			ga('send', 'pageview');
 		</script>
-		 -->
+		-->
 
 	</body>
 </html>

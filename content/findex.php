@@ -1,11 +1,17 @@
 <?php
 setlocale(LC_TIME, "fr_FR");
 $query = "SELECT * FROM article ORDER BY id DESC LIMIT 1";
+$request="SELECT * FROM media WHERE id_article = :article_data";
+
 $result = $connection->query($query);
 /* Tableau associatif */
-$articledata = $result->fetch_array(MYSQLI_ASSOC);
+	$articledata = $result->fetch_array(MYSQLI_ASSOC);
+	$media = $connection->prepare($request);
+	$media->execute(array(
+		':article_data'=>$articledata['id']
+	));
 
-$media = $connection->query("SELECT * FROM media WHERE id_article = $articledata[id]");
+//;
 $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 ?>
 
@@ -31,7 +37,7 @@ echo $articlecat['categorie'];
 												<h2 class="font-weight-bold text-color-light line-height-2 text-5 mb-0"><?php echo "$articledata[titre]"; ?></h2>
 											</div>
 											<div class="thumb-info-show-more-content">
-												<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5"><?php echo html_entity_decode(substr($articledata[texte],0,150)); ?> ...</p>
+												<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5"><?php echo html_entity_decode(substr($articledata['texte'],0,150)); ?>... </p>
 											</div>
 										</div>
 									</div>
@@ -45,13 +51,17 @@ echo $articlecat['categorie'];
 <?php
 // On créé la requête
 $req = "SELECT * FROM article WHERE valide = '1' ORDER BY ID LIMIT 3";
- // on envoie la requête
+//  on envoie la requête
 $res = $connection->query($req);
 ?>
 <?php
 while ($infos_actu = mysqli_fetch_array($res)) {
-	
-$media = $connection->query("SELECT * FROM media WHERE id_article = $infos_actu[id]");
+	$request1="SELECT * FROM media WHERE id_article = :infos_actu";
+	$media = $connection->prepare($request1);
+	$media->execute(array(
+		':infos_actu'=>$infos_actu['id']
+	));
+
 $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 // on affiche les résultats
 
@@ -64,23 +74,27 @@ $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 							<article class="thumb-info thumb-info-side-image thumb-info-no-zoom bg-transparent border-radius-0 pb-4 mb-2">
 								<div class="row align-items-center pb-1">
 									<div class="col-sm-5">
-										<a href="/article-<?php echo $infos_actu[id];?>-<?php echo caractereValideUrl($infos_actu[titre]); ?>.html">
-											<img src="media/images/<?php echo "$articlemedia[nom_media]";?>" class="img-fluid border-radius-0" alt="<?php echo "$infos_actu[titre]"; ?>">
+										<a href="/article-<?php echo $infos_actu['id'];?>-<?php echo caractereValideUrl($infos_actu['titre']); ?>.html">
+											<img src="media/images/<?php echo $articlemedia['nom_media']; ?>" class="img-fluid border-radius-0" alt="<?php echo $infos_actu['titre']; ?>">
 										</a>
 									</div>
 									<div class="col-sm-7 pl-sm-1">
 										<div class="thumb-info-caption-text">
 											<div class="thumb-info-type text-light text-uppercase d-inline-block bg-color-dark px-2 m-0 mb-1 float-none">
-												<a href="/article-<?php echo $infos_actu[id];?>-<?php echo caractereValideUrl($infos_actu[titre]); ?>.html" class="text-decoration-none text-color-light">
+												<a href="/article-<?php echo $infos_actu['id'];?>-<?php echo caractereValideUrl($infos_actu['titre']); ?>.html" class="text-decoration-none text-color-light">
 <?php
-$querycat = $connection->query("SELECT * FROM categorie WHERE id = $infos_actu[categorie]");
+$request2="SELECT * FROM categorie WHERE id = :infos_categorie";
+$querycat = $connection->prepare($request2);
+$querycat->execute(array(
+	':infos_categorie'=>$infos_actu['categorie']
+));
 $articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
-echo $articlecat[categorie];
+echo $articlecat['categorie'];
 ?>
 </a>
 											</div>
 											<h2 class="d-block line-height-2 text-4 text-dark font-weight-bold mt-1 mb-0">
-												<a href="/article-<?php echo $infos_actu[id];?>-<?php echo caractereValideUrl($infos_actu[titre]); ?>.html" class="text-decoration-none text-color-dark text-color-hover-primary"><?php echo "$infos_actu[titre]"; ?></a>
+												<a href="/article-<?php echo $infos_actu['id'];?>-<?php echo caractereValideUrl($infos_actu['titre']); ?>.html" class="text-decoration-none text-color-dark text-color-hover-primary"> <?php echo $infos_actu['titre']; ?> </a>
 											</h2>
 										</div>
 									</div>
@@ -102,7 +116,7 @@ echo $articlecat[categorie];
 								<?php
 $querycat = $connection->query("SELECT * FROM categorie WHERE id = '8' ");
 $articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
-echo $articlecat[categorie];
+echo $articlecat['categorie'];
 ?></strong></h3>
 							</div>
 
@@ -117,8 +131,8 @@ if ($x == 1) {
 									<article class="thumb-info thumb-info-side-image thumb-info-no-zoom bg-transparent border-radius-0 pb-2 mb-2">
 										<div class="row">
 											<div class="col">
-												<a href="/article-<?php echo $articledata[id];?>-<?php echo caractereValideUrl($articledata[titre]); ?>.html">
-													<img src="img/blog/default/blog-67.jpg" class="img-fluid border-radius-0" alt="<?php echo $articledata[titre]; ?>">
+												<a href="/article-<?php echo $articledata['id'];?>-<?php echo caractereValideUrl($articledata['titre']); ?>.html">
+													<img src="img/blog/default/blog-67.jpg" class="img-fluid border-radius-0" alt="<?php echo $articledata['titre']; ?>">
 												</a>
 											</div>
 										</div>
@@ -131,14 +145,14 @@ if ($x == 1) {
 $info_m = $connection->query("SELECT * FROM article WHERE valide = '1' AND id = $x");
 $infos_actu = mysqli_fetch_array($info_m, MYSQLI_ASSOC);
 
-$date1 = date($infos_actu[publication]); 
+$date1 = date($infos_actu['publication']); 
 
 
 
 
 ?>
 																		
-														<a href="/article-<?php echo $articledata[id];?>-<?php echo caractereValideUrl($articledata[titre]); ?>.html" class="text-decoration-none text-color-default"><?php echo strftime("%A %d %B %G", strtotime($date1));  ?></a>
+														<a href="/article-<?php echo $articledata['id'];?>-<?php echo caractereValideUrl($articledata['titre']); ?>.html" class="text-decoration-none text-color-default"><?php echo strftime("%A %d %B %G", strtotime($date1));  ?></a>
 													</div>
 													<h4 class="d-block line-height-2 text-4 text-dark font-weight-bold mb-0">
 														<a href="blog-post.html" class="text-decoration-none text-color-dark text-color-hover-primary">bla blabla blabla blabla blabla blabla bla </a>
@@ -197,7 +211,7 @@ $x++;
 								<?php
 $querycat = $connection->query("SELECT * FROM categorie WHERE id = '6' ");
 $articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
-echo $articlecat[categorie];
+echo $articlecat['categorie'];
 ?></strong></h3>
 							</div>
 
@@ -278,7 +292,7 @@ $x++;
 								<?php
 $querycat = $connection->query("SELECT * FROM categorie WHERE id = '3' ");
 $articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
-echo $articlecat[categorie];
+echo $articlecat['categorie'];
 ?></strong></h3>
 							</div>
 
