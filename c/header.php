@@ -85,15 +85,14 @@ while($row = $query->fetch_assoc()){
 $query2 = $connection->query("SELECT * FROM article WHERE categorie = '$row[id]'");
 $row_cnt = mysqli_num_rows($query2);
 
-$categorie = caractereValideUrl($row[categorie]);
+$categorie = caractereValideUrl($row['categorie']);
 //echo '<option value="'.$row['id'].'">'.$row['categorie'].'</option>';
 echo "<li><a class=\"dropdown-item\" href=\"rubrique-$row[id]-$categorie.html\">$row[categorie] ($row_cnt)</a></li>";
 
 }
 
 ?>
-												
-																	 																 
+
 																</ul>
 															</li>
 															<li class="dropdown dropdown-full-color dropdown-light">

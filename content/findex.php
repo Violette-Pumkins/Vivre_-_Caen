@@ -27,14 +27,19 @@ $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 										<div class="thumb-info-title bg-transparent p-4">
 											<div class="thumb-info-type bg-color-dark px-2 mb-1">						
 <?php
-$query = $connection->query("SELECT * FROM categorie WHERE id = $articledata[categorie]");
+$request3="SELECT * FROM categorie WHERE id = :article_categorie ";
+$query = $connection->prepare($request3);
+$query->execute(array(
+':article_categorie'=>$articledata['categorie']
+));
 $articlecat = $query->fetch_array(MYSQLI_ASSOC);
 echo $articlecat['categorie'];
 
 
-?></div>
+?>
+</div>
 											<div class="thumb-info-inner mt-1">
-												<h2 class="font-weight-bold text-color-light line-height-2 text-5 mb-0"><?php echo "$articledata[titre]"; ?></h2>
+												<h2 class="font-weight-bold text-color-light line-height-2 text-5 mb-0"><?php echo $articledata['titre']; ?></h2>
 											</div>
 											<div class="thumb-info-show-more-content">
 												<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5"><?php echo html_entity_decode(substr($articledata['texte'],0,150)); ?>... </p>
@@ -728,7 +733,7 @@ echo "<a href=\"#$row[id]\"><span class=\"badge badge-dark bg-color-black badge-
 ?>
 
 								</div>
-								<a href="http://themeforest.net/item/porto-responsive-html5-template/4106987" target="_blank" class="my-4 pt-3 d-block">
+								<a href="https://themeforest.net/item/porto-responsive-html5-template/4106987" target="_blank" class="my-4 pt-3 d-block">
 									<img alt="Porto" class="img-fluid" src="img/blog/blog-ad-1-medium.jpg" />
 								</a>
 								<h5 class="font-weight-bold pt-4">Find us on Facebook</h5>
