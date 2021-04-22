@@ -1,0 +1,8 @@
+Options +FollowSymlinks
+RewriteEngine on
+RewriteRule ^contact.html$ /?o=contact [L]
+RewriteRule ^magazine.html$ /?o=mag [L]
+RewriteRule ^article-([0-9]+)-([a-z0-9\-]+)\.html$ /?o=article&id=$1 [L]
+RewriteRule ^rubrique-([0-9]+)-([a-z0-9\-]+)\.html$ /?o=rub&id=$1 [L]
+RewriteRule annonceurs.html$ /?o=annonce [L]
+RewriteRule mon-compte.html$ /?o=profil [L]
