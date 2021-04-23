@@ -1,18 +1,17 @@
 <?php
-setlocale(LC_TIME, "fr_FR");
-$query = "SELECT * FROM article ORDER BY id DESC LIMIT 1";
-$request="SELECT * FROM media WHERE id_article = :article_data";
+	setlocale(LC_TIME, "fr_FR");
+	$query = "SELECT * FROM article ORDER BY id DESC LIMIT 1";
+	$request="SELECT * FROM media WHERE id_article =:article_data";
 
-$result = $connection->query($query);
-/* Tableau associatif */
+	$result = $connection->query($query);
 	$articledata = $result->fetch_array(MYSQLI_ASSOC);
-	$media = $connection->prepare($request);
-	$media->execute(array(
-		':article_data'=>$articledata['id']
-	));
+/* Tableau associatif */
 
-//;
-$articlemedia = $media->fetch_array(MYSQLI_ASSOC);
+	// $media= $connexion->prepare($request);
+	// $media->execute(array(
+	// 	':article_data'=>$articledata['id']
+	// ));
+	// $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 ?>
 
 
@@ -20,24 +19,20 @@ $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 					<div class="row pb-1">
 
 						<div class="col-lg-7 mb-4 pb-2">
-							<a href="/article-<?php echo $articledata['id'];?>-
-							<?php 
-							// echo caractereValideUrl($articledata['titre']); 
-							?>
-							.html">
+							<a href="/article-<?php echo $articledata['id'];?>-<?php echo caractereValideUrl($articledata['titre']); ?>.html">
 								<article class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
 									<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
 										<img src="media/images/<?php echo $articlemedia['nom_media'];?>" style="height:390px" class="img-fluid" alt="<?php echo $articledata['titre']; ?>">
 										<div class="thumb-info-title bg-transparent p-4">
 											<div class="thumb-info-type bg-color-dark px-2 mb-1">						
 <?php
-$request3="SELECT * FROM categorie WHERE id = :article_categorie ";
-$query = $connection->prepare($request3);
-$query->execute(array(
-':article_categorie'=>$articledata['categorie']
-));
-$articlecat = $query->fetch_array(MYSQLI_ASSOC);
-echo $articlecat['categorie'];
+	// $request3="SELECT * FROM categorie WHERE id = :article_categorie ";
+	// $query = $connection->prepare($request3);
+	// $query->execute(array(
+	// ':article_categorie'=>$articledata['categorie']
+	// ));
+	// $articlecat = $query->fetch_array(MYSQLI_ASSOC);
+	// echo $articlecat['categorie'];
 
 
 ?>
@@ -58,11 +53,11 @@ echo $articlecat['categorie'];
 
 
 <?php
-// On créé la requête
-// $req = "SELECT * FROM article WHERE valide = '1' ORDER BY ID LIMIT 3";
-// //  on envoie la requête
-// $res = $connection->query($req);
-// ?>
+	// On créé la requête
+	// $req = "SELECT * FROM article WHERE valide = '1' ORDER BY ID LIMIT 3";
+	//  on envoie la requête
+	$res = $connection->query($req);
+?>
 <?php
 while ($infos_actu = mysqli_fetch_array($res)) {
 	$request1="SELECT * FROM media WHERE id_article = :infos_actu";
@@ -83,8 +78,9 @@ $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 							<article class="thumb-info thumb-info-side-image thumb-info-no-zoom bg-transparent border-radius-0 pb-4 mb-2">
 								<div class="row align-items-center pb-1">
 									<div class="col-sm-5">
-										<a href="/article-<?php echo $infos_actu['id'];?>-<?php echo caractereValideUrl($infos_actu['titre']); ?>.html">
+										<a href="<?php echo "HELLO??" ?>">
 											<img src="media/images/<?php echo $articlemedia['nom_media']; ?>" class="img-fluid border-radius-0" alt="<?php echo $infos_actu['titre']; ?>">
+											<img src="media/images/img__82_0.png" class="img-fluid border-radius-0"  alt="<?php echo $infos_actu['titre']; ?>">
 										</a>
 									</div>
 									<div class="col-sm-7 pl-sm-1">
@@ -123,9 +119,9 @@ $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 							<div class="heading heading-border heading-middle-border">
 								<h3 class="text-4"><strong class="font-weight-bold text-1 px-3 text-light py-2 bg-secondary">
 								<?php
-$querycat = $connection->query("SELECT * FROM categorie WHERE id = '8' ");
-$articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
-echo $articlecat['categorie'];
+// $querycat = $connection->query("SELECT * FROM categorie WHERE id = '8' ");
+// $articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
+// echo $articlecat['categorie'];
 ?></strong></h3>
 							</div>
 
@@ -218,9 +214,9 @@ $x++;
 	<div class="heading heading-border heading-middle-border">
 								<h3 class="text-4"><strong class="font-weight-bold text-1 px-3 text-light py-2 bg-tertiary">
 								<?php
-$querycat = $connection->query("SELECT * FROM categorie WHERE id = '6' ");
-$articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
-echo $articlecat['categorie'];
+// $querycat = $connection->query("SELECT * FROM categorie WHERE id = '6' ");
+// $articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
+// echo $articlecat['categorie'];
 ?></strong></h3>
 							</div>
 
@@ -298,10 +294,10 @@ $x++;
 
 	<div class="heading heading-border heading-middle-border">
 								<h3 class="text-4"><strong class="font-weight-bold text-1 px-3 text-light py-2 bg-quaternary">
-								<?php
-$querycat = $connection->query("SELECT * FROM categorie WHERE id = '3' ");
-$articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
-echo $articlecat['categorie'];
+<?php
+// $querycat = $connection->query("SELECT * FROM categorie WHERE id = '3' ");
+// $articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
+// echo $articlecat['categorie'];
 ?></strong></h3>
 							</div>
 
@@ -729,7 +725,7 @@ $x++;
 //Get all country data
 $query = $connection->query("SELECT * FROM categorie");
 while($row = $query->fetch_assoc()){ 
-//echo '<option value="'.$row['id'].'">'.$row['categorie'].'</option>';
+echo '<option value="'.$row['id'].'">'.$row['categorie'].'</option>';
 echo "<a href=\"#$row[id]\"><span class=\"badge badge-dark bg-color-black badge-sm py-2 mr-1 mb-2 text-uppercase  px-2 py-1 mr-1\">$row[categorie]</span></a>";
 
 }

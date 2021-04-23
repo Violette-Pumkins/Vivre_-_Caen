@@ -11,16 +11,7 @@
 		return $date;
 	}
 
-
-
-    /**
-	 * valide les caractères
-	 *
-	 * @param string $string
-	 * @param string $charset
-	 * @return string
-	 */
-    function caractereValideUrl(string $string, $charset='utf-8')
+    function caractereValideUrl( $string, $charset='utf-8')
     {
         $string = html_entity_decode($string);
         $string = htmlentities($string, ENT_NOQUOTES, $charset);
@@ -148,7 +139,8 @@
 	break;
 
 	default:
-	include('content/findex.php');
+	include('findex_copy.php');
+	// include('content/findex.php');
 	break;
 	}
 ?>
@@ -184,7 +176,7 @@ include_once "c/footer.php";
 		<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 		<script src="vendor/vide/jquery.vide.min.js"></script>
 		<script src="vendor/vivus/vivus.min.js"></script>
-		<script src="vendor/jquery.instagramfeed/jquery.instagramFeed.min.js"></script>
+		<!-- <script src="vendor/jquery.instagramfeed/jquery.instagramFeed.min.js"></script> -->
 
 		<!-- Theme Base, Components and Settings -->
 		<script src="js/theme.js"></script>
@@ -197,7 +189,7 @@ include_once "c/footer.php";
 		<script src="js/theme.init.js"></script>
 
 		<!-- Examples -->
-		<script src="js/examples/examples.instagramFeed.js"></script>
+		<!-- <script src="js/examples/examples.instagramFeed.js"></script> -->
 
 		<!-- Google Analytics: Change UA-XXXXX-X to be your site's ID. Go to http://www.google.com/analytics/ for more information.
 		<script>
