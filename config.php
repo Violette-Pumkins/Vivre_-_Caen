@@ -2,7 +2,6 @@
 /*
  * Basic Site Settings and API Configuration
  */
-  
 	
 // Database configuration
 define('DB_HOST', 'db5001908671.hosting-data.io');
@@ -44,13 +43,13 @@ try {
     if(isset($_SESSION['facebook_access_token'])){
         $accessToken = $_SESSION['facebook_access_token'];
     }else{
-          $accessToken = $helper->getAccessToken();
+        $accessToken = $helper->getAccessToken();
     }
 } catch(FacebookResponseException $e) {
-     echo 'Graph returned an error: ' . $e->getMessage();
-      exit;
+    echo 'Graph returned an error: ' . $e->getMessage();
+        exit;
 } catch(FacebookSDKException $e) {
     echo 'Facebook SDK returned an error: ' . $e->getMessage();
-      exit;
+        exit;
 }
 ?>

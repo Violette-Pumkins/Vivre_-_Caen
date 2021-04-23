@@ -45,7 +45,7 @@
 <html>
 	<head>
 
-<script data-ad-client="ca-pub-1618154492203516" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script data-ad-client="ca-pub-1618154492203516" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 		<!-- Basic -->
 		<meta charset="utf-8">

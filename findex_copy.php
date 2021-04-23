@@ -207,10 +207,10 @@ if ($x == 1) {
 													<div class="d-inline-block text-default text-1 mt-2 float-none">
 													
 <?php
-$info_m = $connection->query("SELECT * FROM article WHERE valide = '1' AND id = $x");
-$infos_actu = mysqli_fetch_array($info_m, MYSQLI_ASSOC);
+// $info_m = $connection->query("SELECT * FROM article WHERE valide = '1' AND id = $x");
+// $infos_actu = mysqli_fetch_array($info_m, MYSQLI_ASSOC);
 
-$date1 = date($infos_actu['publication']); 
+// $date1 = date($infos_actu['publication']); 
 
 
 
