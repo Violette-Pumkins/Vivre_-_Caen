@@ -23,4 +23,5 @@
 
     $connection = mysqli_connect($host, $user, $password, $dbname) or die("Database connection not established.");
 
+
 ?>

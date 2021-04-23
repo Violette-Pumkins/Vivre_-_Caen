@@ -1,5 +1,6 @@
 <?php
 	include('config/db.php');
+	include('config/Database.class.php');
 	$connection->set_charset('utf8');
 
 	function fDate($d)

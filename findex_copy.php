@@ -1,17 +1,39 @@
 <?php
+	$co=Database::getConnexion();
 	setlocale(LC_TIME, "fr_FR");
 	$query = "SELECT * FROM article ORDER BY id DESC LIMIT 1";
+	// $result = $connection->query($query);
+	// $articledata = $result->fetch_array(MYSQLI_ASSOC);
+	// var_dump($articledata);
+	//moncode
+	
+	$res = $co->prepare($query);
+	$res->execute();
+	$articledata = $res->fetch(PDO::FETCH_ASSOC);
+	$res ->closeCursor();
+	// var_dump(array_diff($articledata2, $articledata));
+
 	$request="SELECT * FROM media WHERE id_article =:article_data";
 
-	$result = $connection->query($query);
-	$articledata = $result->fetch_array(MYSQLI_ASSOC);
 /* Tableau associatif */
-
-	// $media= $connexion->prepare($request);
+	// $request="SELECT * FROM media WHERE id_article ="
+	// 	$connection->real_escape_string($articledata['id'])
+	// );
+	// $media= $connexion->query($request);
+	// $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 	// $media->execute(array(
 	// 	':article_data'=>$articledata['id']
 	// ));
 	// $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
+	// var_dump($articlemedia);
+	// $co=Database::getConnexion();
+	$media= $co->prepare($request);
+	$media->execute(array(
+		':article_data'=>$articledata['id']
+	));
+	$articlemedia=$media->fetch();
+	$media->closeCursor();
+
 ?>
 
 
@@ -33,6 +55,15 @@
 	// ));
 	// $articlecat = $query->fetch_array(MYSQLI_ASSOC);
 	// echo $articlecat['categorie'];
+
+	$request3="SELECT * FROM categorie WHERE id = :article_categorie ";
+	$query = $co->prepare($request3);
+	$query->execute(array(
+	':article_categorie'=>$articledata['categorie']
+	));
+	$articlecat = $query->fetch();
+	// var_dump($articlecat['categorie']);
+	echo $articlecat['categorie'];
 
 
 ?>
@@ -56,17 +87,37 @@
 	// On créé la requête
 	// $req = "SELECT * FROM article WHERE valide = '1' ORDER BY ID LIMIT 3";
 	//  on envoie la requête
-	$res = $connection->query($req);
-?>
-<?php
-while ($infos_actu = mysqli_fetch_array($res)) {
-	$request1="SELECT * FROM media WHERE id_article = :infos_actu";
-	$media = $connection->prepare($request1);
-	$media->execute(array(
-		':infos_actu'=>$infos_actu['id']
-	));
+	// $res = $connection->query($req);
 
-$articlemedia = $media->fetch_array(MYSQLI_ASSOC);
+
+	// On créé la requête
+	$req = "SELECT * FROM article WHERE valide = '1' ORDER BY ID LIMIT 3";
+	//  on envoie la requête
+	$res = $co->prepare($req);
+	$res->execute();
+	$artValides = $res->fetchAll();
+
+	foreach($artValides as $infos_actu ){
+
+		// var_dump($artValide);
+		$request1="SELECT * FROM media WHERE id_article = :infos_actu";
+		$idart=$infos_actu['id'];
+
+		$media = $co->prepare($request1);
+		$media->execute(array(
+			':infos_actu'=>$idart
+		));
+	$articlemedia = $media->fetch();
+	// var_dump($articlemedia);
+
+
+// while ($infos_actu = mysqli_fetch_array($res)) {
+// 	$request1="SELECT * FROM media WHERE id_article = :infos_actu";
+// 	$media = $connection->prepare($request1);
+// 	$media->execute(array(
+// 		':infos_actu'=>$infos_actu['id']
+// 	));
+// $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 // on affiche les résultats
 
 
@@ -94,6 +145,15 @@ $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 // 	':infos_categorie'=>$infos_actu['categorie']
 // ));
 // $articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
+// echo $articlecat['categorie'];
+
+
+// $request2="SELECT * FROM categorie WHERE id = :infos_categorie";
+// $querycat = $connexion->prepare($request2);
+// $querycat->execute(array(
+// 	':infos_categorie'=>$infos_actu['categorie']
+// ));
+// $articlecat = $querycat->fetch();
 // echo $articlecat['categorie'];
 ?>
 </a>
