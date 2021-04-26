@@ -112,8 +112,9 @@
 			<div role="main" class="main pt-3 mt-3">
 				
 <?php
-	switch (@$_GET['o']) {
-			
+	$o = isset($_GET['o']) ? $_GET['o'] : "default";
+	switch ($o) {
+		
 	case "login":
 	include('content/flogin.php');
 	break;

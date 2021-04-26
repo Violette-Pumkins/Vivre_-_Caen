@@ -378,7 +378,7 @@ $x++;
 							</div>
 							<div class="text-center py-3 mb-4">
 								<a href="#" target="_blank" class="d-block">
-									<img alt="Porto" class="img-fluid pl-3" src="img/blog/blog-ad-2.jpg" />
+									<img alt="Porto" class="img-fluid pl-3" src="img/blog/blog-2.jpg" />
 								</a>
 							</div>
 
@@ -738,7 +738,7 @@ echo "<a href=\"#$row[id]\"><span class=\"badge badge-dark bg-color-black badge-
 
 								</div>
 								<a href="https://themeforest.net/item/porto-responsive-html5-template/4106987" target="_blank" class="my-4 pt-3 d-block">
-									<img alt="Porto" class="img-fluid" src="img/blog/blog-ad-1-medium.jpg" />
+									<img alt="Porto" class="img-fluid" src="img/blog/blog-1-medium.jpg" />
 								</a>
 								<h5 class="font-weight-bold pt-4">Find us on Facebook</h5>
 								<div class="fb-page" data-href="https://www.facebook.com/OklerThemes/" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/OklerThemes/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/OklerThemes/">Okler Themes</a></blockquote></div>

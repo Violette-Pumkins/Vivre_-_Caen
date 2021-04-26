@@ -1,0 +1,1 @@
+php -S 127.0.0.1:8000 -c C:\wamp64\bin\php\php7.4.9\php.ini

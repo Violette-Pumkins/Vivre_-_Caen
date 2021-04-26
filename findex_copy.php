@@ -25,8 +25,6 @@
 	// 	':article_data'=>$articledata['id']
 	// ));
 	// $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
-	// var_dump($articlemedia);
-	// $co=Database::getConnexion();
 	$media= $co->prepare($request);
 	$media->execute(array(
 		':article_data'=>$articledata['id']
@@ -48,16 +46,16 @@
 										<div class="thumb-info-title bg-transparent p-4">
 											<div class="thumb-info-type bg-color-dark px-2 mb-1">						
 <?php
-	// $request3="SELECT * FROM categorie WHERE id = :article_categorie ";
-	// $query = $connection->prepare($request3);
+	// $request="SELECT * FROM categorie WHERE id = :article_categorie ";
+	// $query = $connection->prepare($request);
 	// $query->execute(array(
 	// ':article_categorie'=>$articledata['categorie']
 	// ));
 	// $articlecat = $query->fetch_array(MYSQLI_ASSOC);
 	// echo $articlecat['categorie'];
 
-	$request3="SELECT * FROM categorie WHERE id = :article_categorie ";
-	$query = $co->prepare($request3);
+	$request="SELECT * FROM categorie WHERE id = :article_categorie ";
+	$query = $co->prepare($request);
 	$query->execute(array(
 	':article_categorie'=>$articledata['categorie']
 	));
@@ -100,10 +98,10 @@
 	foreach($artValides as $infos_actu ){
 
 		// var_dump($artValide);
-		$request1="SELECT * FROM media WHERE id_article = :infos_actu";
+		$request="SELECT * FROM media WHERE id_article = :infos_actu";
 		$idart=$infos_actu['id'];
 
-		$media = $co->prepare($request1);
+		$media = $co->prepare($request);
 		$media->execute(array(
 			':infos_actu'=>$idart
 		));
@@ -112,8 +110,8 @@
 
 
 // while ($infos_actu = mysqli_fetch_array($res)) {
-// 	$request1="SELECT * FROM media WHERE id_article = :infos_actu";
-// 	$media = $connection->prepare($request1);
+// 	$request="SELECT * FROM media WHERE id_article = :infos_actu";
+// 	$media = $connection->prepare($request);
 // 	$media->execute(array(
 // 		':infos_actu'=>$infos_actu['id']
 // 	));
@@ -131,7 +129,6 @@
 									<div class="col-sm-5">
 										<a href="<?php echo "HELLO??" ?>">
 											<img src="media/images/<?php echo $articlemedia['nom_media']; ?>" class="img-fluid border-radius-0" alt="<?php echo $infos_actu['titre']; ?>">
-											<img src="media/images/img__82_0.png" class="img-fluid border-radius-0"  alt="<?php echo $infos_actu['titre']; ?>">
 										</a>
 									</div>
 									<div class="col-sm-7 pl-sm-1">
@@ -139,8 +136,8 @@
 											<div class="thumb-info-type text-light text-uppercase d-inline-block bg-color-dark px-2 m-0 mb-1 float-none">
 												<a href="/article-<?php echo $infos_actu['id'];?>-<?php echo caractereValideUrl($infos_actu['titre']); ?>.html" class="text-decoration-none text-color-light">
 <?php
-// $request2="SELECT * FROM categorie WHERE id = :infos_categorie";
-// $querycat = $connection->prepare($request2);
+// $request="SELECT * FROM categorie WHERE id = :infos_categorie";
+// $querycat = $connection->prepare($request);
 // $querycat->execute(array(
 // 	':infos_categorie'=>$infos_actu['categorie']
 // ));
@@ -148,13 +145,13 @@
 // echo $articlecat['categorie'];
 
 
-// $request2="SELECT * FROM categorie WHERE id = :infos_categorie";
-// $querycat = $connexion->prepare($request2);
-// $querycat->execute(array(
-// 	':infos_categorie'=>$infos_actu['categorie']
-// ));
-// $articlecat = $querycat->fetch();
-// echo $articlecat['categorie'];
+$request="SELECT * FROM categorie WHERE id = :infos_categorie";
+$querycat = $co->prepare($request);
+$querycat->execute(array(
+	':infos_categorie'=>$infos_actu['categorie']
+));
+$articlecat = $querycat->fetch();
+echo $articlecat['categorie'];
 ?>
 </a>
 											</div>
@@ -182,6 +179,12 @@
 // $querycat = $connection->query("SELECT * FROM categorie WHERE id = '8' ");
 // $articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
 // echo $articlecat['categorie'];
+$id_cat = 8;
+$request= "SELECT * FROM categorie WHERE id = :id_cat";
+$querycat = $co->prepare($request);
+$querycat->execute(array(':id_cat'=>$id_cat));
+$articlecat = $querycat->fetch();
+echo $articlecat['categorie'];
 ?></strong></h3>
 							</div>
 
@@ -209,9 +212,13 @@ if ($x == 1) {
 <?php
 // $info_m = $connection->query("SELECT * FROM article WHERE valide = '1' AND id = $x");
 // $infos_actu = mysqli_fetch_array($info_m, MYSQLI_ASSOC);
-
 // $date1 = date($infos_actu['publication']); 
-
+$request="SELECT * FROM article WHERE valide = '1' AND id = 89";
+$info_m = $co->prepare($request);
+$info_m->execute();
+$infos_actu =$info_m->fetch() ;
+$date1 = date($infos_actu['publication']); 
+// var_dump($infos_actu['publication']);
 
 
 
@@ -277,6 +284,16 @@ $x++;
 // $querycat = $connection->query("SELECT * FROM categorie WHERE id = '6' ");
 // $articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
 // echo $articlecat['categorie'];
+
+
+$id_cat = 6;
+$request= "SELECT * FROM categorie WHERE id = :id_cat";
+$querycat = $co->prepare($request);
+$querycat->execute(array(':id_cat'=>$id_cat));
+$articlecat = $querycat->fetch();
+echo $articlecat['categorie'];
+
+
 ?></strong></h3>
 							</div>
 
@@ -358,6 +375,15 @@ $x++;
 // $querycat = $connection->query("SELECT * FROM categorie WHERE id = '3' ");
 // $articlecat = $querycat->fetch_array(MYSQLI_ASSOC);
 // echo $articlecat['categorie'];
+
+$id_cat = 3;
+$request= "SELECT * FROM categorie WHERE id = :id_cat";
+$querycat = $co->prepare($request);
+$querycat->execute(array(':id_cat'=>$id_cat));
+$articlecat = $querycat->fetch();
+echo $articlecat['categorie'];
+
+
 ?></strong></h3>
 							</div>
 
@@ -434,7 +460,7 @@ $x++;
 							</div>
 							<div class="text-center py-3 mb-4">
 								<a href="#" target="_blank" class="d-block">
-									<img alt="Porto" class="img-fluid pl-3" src="img/blog/blog-ad-2.jpg" />
+									<img alt="Porto" class="img-fluid pl-3" src="img/blog/blog-2.jpg" />
 								</a>
 							</div>
 
@@ -794,7 +820,7 @@ echo "<a href=\"#$row[id]\"><span class=\"badge badge-dark bg-color-black badge-
 
 								</div>
 								<a href="https://themeforest.net/item/porto-responsive-html5-template/4106987" target="_blank" class="my-4 pt-3 d-block">
-									<img alt="Porto" class="img-fluid" src="img/blog/blog-ad-1-medium.jpg" />
+									<img alt="Porto" class="img-fluid" src="img/blog/blog-1-medium.jpg" />
 								</a>
 								<h5 class="font-weight-bold pt-4">Find us on Facebook</h5>
 								<div class="fb-page" data-href="https://www.facebook.com/OklerThemes/" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/OklerThemes/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/OklerThemes/">Okler Themes</a></blockquote></div>

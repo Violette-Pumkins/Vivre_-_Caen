@@ -34,7 +34,7 @@
 							
 								<div class="header-row h-100">
 									<a href="#" target="_blank" class="py-3 d-block">
-										<img alt="Vivre à Caen - Le magazine" class="img-fluid pl-3" src="img/blog/blog-ad-2.jpg" />
+										<img alt="Vivre à Caen - Le magazine" class="img-fluid pl-3" src="img/blog/blog-2.jpg" />
 									</a>
 								</div>
 							</div>
