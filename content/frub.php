@@ -1,8 +1,16 @@
 <?php
-setlocale(LC_TIME, "fr_FR");
+$co=Database::getConnexion()
+;setlocale(LC_TIME, "fr_FR");
 
-$queryrub = $connection->query("SELECT * FROM categorie WHERE id = '$_GET[id]'");
-$queryrub2 = $queryrub->fetch_array(MYSQLI_ASSOC);
+// $queryrub = $connection->query("SELECT * FROM categorie WHERE id = '$_GET[id]'");
+// $queryrub2 = $queryrub->fetch_array(MYSQLI_ASSOC);
+
+
+$id_cat=$_GET['id'];
+$request="SELECT * FROM categorie WHERE id = :id_cat";
+$queryrub = $co->prepare($request);
+$queryrub->execute(array(':id_cat'=>$id_cat));
+$queryrub2 = $queryrub->fetch();
 
 
 ?>
@@ -16,7 +24,7 @@ $queryrub2 = $queryrub->fetch_array(MYSQLI_ASSOC);
 
 								<ul class="breadcrumb d-block text-center">
 									<li><a href="./index.php">Accueil</a></li>
-									<li class="active"><?php echo "$queryrub2[categorie]";?></li>
+									<li class="active"><?php echo $queryrub2['categorie'];?></li>
 								</ul>
 							</div>
 						
@@ -170,26 +178,26 @@ $queryrub2 = $queryrub->fetch_array(MYSQLI_ASSOC);
 <?php
 $query = $connection->query("SELECT * FROM article WHERE categorie = '$_GET[id]'");
 while($row = $query->fetch_assoc()){ 
-
+//DIMITRI
 $media = $connection->query("SELECT * FROM media WHERE id_article = $row[id]");
 $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
 
-$date1 = date($row[publication]); 
+$date1 = date($row['publication']); 
 ?>
 
 									<article class="post post-medium">
 									<div class="row mb-3">
 										<div class="col-lg-5">
 											<div class="post-image">
-												<a href="/article-<?php echo $row[id];?>-<?php echo caractereValideUrl($row[titre]); ?>.html">
-													<img src="media/images/<?php echo "$articlemedia[nom_media]";?>" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" />
+												<a href="/article-<?php echo $row['id'];?>-<?php echo caractereValideUrl($row['titre']); ?>.html">
+													<img src="media/images/<?php echo $articlemedia['nom_media'];?>" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" />
 												</a>
 											</div>
 										</div>
 										<div class="col-lg-7">
 											<div class="post-content">
-												<h2 class="font-weight-semibold pt-4 pt-lg-0 text-5 line-height-4 mb-2"><a href="/article-<?php echo $row[id];?>-<?php echo caractereValideUrl($row[titre]); ?>.html"><?php echo $row[titre]; ?></a></h2>
-												<p class="mb-0"><?php echo html_entity_decode(substr($row[texte], 0, 600));?> [...]</p>
+												<h2 class="font-weight-semibold pt-4 pt-lg-0 text-5 line-height-4 mb-2"><a href="/article-<?php echo $row['id'];?>-<?php echo caractereValideUrl($row['titre']); ?>.html"><?php echo $row['titre']; ?></a></h2>
+												<p class="mb-0"><?php echo html_entity_decode(substr($row['texte'], 0, 600));?> [...]</p>
 											</div>
 										</div>
 									</div>
@@ -198,10 +206,10 @@ $date1 = date($row[publication]);
 											<div class="post-meta">
 
 												<span><i class="far fa-calendar-alt"></i> <?php echo strftime("%A %d %B %G", strtotime($date1));  ?> </span>
-												<span><i class="far fa-user"></i> Posté par <a href="#"><?php echo "$row[auteur]"; ?></a> </span>
+												<span><i class="far fa-user"></i> Posté par <a href="#"><?php echo $row['auteur']; ?></a> </span>
 												<span><i class="far fa-folder"></i> <a href="#">Lifestyle</a>, <a href="#">Design</a> </span>
 												<span><i class="far fa-comments"></i> <a href="#">0 commentaires</a></span>
-												<span class="d-block d-sm-inline-block float-sm-right mt-3 mt-sm-0"><a href="/article-<?php echo $row[id];?>-<?php echo caractereValideUrl($row[titre]); ?>.html" class="btn btn-xs btn-light text-1 text-uppercase">Lire l'article</a></span>
+												<span class="d-block d-sm-inline-block float-sm-right mt-3 mt-sm-0"><a href="/article-<?php echo $row['id'];?>-<?php echo caractereValideUrl($row['titre']); ?>.html" class="btn btn-xs btn-light text-1 text-uppercase">Lire l'article</a></span>
 											</div>
 										</div>
 									</div>

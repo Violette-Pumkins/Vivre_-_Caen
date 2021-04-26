@@ -172,10 +172,22 @@ setlocale(LC_TIME, "fr_FR");
 							<div class="blog-posts">
 
 <?php
-$query = $connection->query("SELECT * FROM article WHERE categorie = '$_GET[id]'");
-while($row = $query->fetch_assoc()){ 
+// $query = $connection->query("SELECT * FROM article WHERE categorie = '$_GET[id]'");
+// while($row = $query->fetch_assoc()){ 
+// $date1 = date($row['publication']); 
 
-$date1 = date($row['publication']); 
+$id_cat=$_GET['id'];
+$request="SELECT * FROM article WHERE categorie = :id_cat";
+$query = $co->prepare($request);
+$query->execute(array(':id_cat'=>$id_cat));
+
+//while update
+$res=$query->fetchAll();
+foreach($res as $row){
+	$date1 = date($row['publication']);
+
+// while($row = $query->fetch_assoc()){ 
+// $date1 = date($row['publication']); 
 ?>
 
 									<article class="post post-medium">

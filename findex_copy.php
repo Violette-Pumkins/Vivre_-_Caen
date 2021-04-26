@@ -1,36 +1,36 @@
 <?php
-	$co=Database::getConnexion();
-	setlocale(LC_TIME, "fr_FR");
-	$query = "SELECT * FROM article ORDER BY id DESC LIMIT 1";
-	// $result = $connection->query($query);
-	// $articledata = $result->fetch_array(MYSQLI_ASSOC);
-	// var_dump($articledata);
-	//moncode
-	
-	$res = $co->prepare($query);
-	$res->execute();
-	$articledata = $res->fetch(PDO::FETCH_ASSOC);
-	$res ->closeCursor();
-	// var_dump(array_diff($articledata2, $articledata));
+    $co=Database::getConnexion();
+    setlocale(LC_TIME, "fr_FR");
+    $query = "SELECT * FROM article ORDER BY id DESC LIMIT 1";
+    // $result = $connection->query($query);
+    // $articledata = $result->fetch_array(MYSQLI_ASSOC);
+    // var_dump($articledata);
+    //moncode
+    
+    $res = $co->prepare($query);
+    $res->execute();
+    $articledata = $res->fetch(PDO::FETCH_ASSOC);
+    $res ->closeCursor();
+    // var_dump(array_diff($articledata2, $articledata));
 
-	$request="SELECT * FROM media WHERE id_article =:article_data";
+    $request="SELECT * FROM media WHERE id_article =:article_data";
 
 /* Tableau associatif */
-	// $request="SELECT * FROM media WHERE id_article ="
-	// 	$connection->real_escape_string($articledata['id'])
-	// );
-	// $media= $connexion->query($request);
-	// $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
-	// $media->execute(array(
-	// 	':article_data'=>$articledata['id']
-	// ));
-	// $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
-	$media= $co->prepare($request);
-	$media->execute(array(
-		':article_data'=>$articledata['id']
-	));
-	$articlemedia=$media->fetch();
-	$media->closeCursor();
+    // $request="SELECT * FROM media WHERE id_article ="
+    // 	$connection->real_escape_string($articledata['id'])
+    // );
+    // $media= $connexion->query($request);
+    // $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
+    // $media->execute(array(
+    // 	':article_data'=>$articledata['id']
+    // ));
+    // $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
+    $media= $co->prepare($request);
+    $media->execute(array(
+        ':article_data'=>$articledata['id']
+    ));
+    $articlemedia=$media->fetch();
+    $media->closeCursor();
 
 ?>
 
@@ -46,22 +46,22 @@
 										<div class="thumb-info-title bg-transparent p-4">
 											<div class="thumb-info-type bg-color-dark px-2 mb-1">						
 <?php
-	// $request="SELECT * FROM categorie WHERE id = :article_categorie ";
-	// $query = $connection->prepare($request);
-	// $query->execute(array(
-	// ':article_categorie'=>$articledata['categorie']
-	// ));
-	// $articlecat = $query->fetch_array(MYSQLI_ASSOC);
-	// echo $articlecat['categorie'];
+    // $request="SELECT * FROM categorie WHERE id = :article_categorie ";
+    // $query = $connection->prepare($request);
+    // $query->execute(array(
+    // ':article_categorie'=>$articledata['categorie']
+    // ));
+    // $articlecat = $query->fetch_array(MYSQLI_ASSOC);
+    // echo $articlecat['categorie'];
 
-	$request="SELECT * FROM categorie WHERE id = :article_categorie ";
-	$query = $co->prepare($request);
-	$query->execute(array(
-	':article_categorie'=>$articledata['categorie']
-	));
-	$articlecat = $query->fetch();
-	// var_dump($articlecat['categorie']);
-	echo $articlecat['categorie'];
+    $request="SELECT * FROM categorie WHERE id = :article_categorie ";
+    $query = $co->prepare($request);
+    $query->execute(array(
+    ':article_categorie'=>$articledata['categorie']
+    ));
+    $articlecat = $query->fetch();
+    // var_dump($articlecat['categorie']);
+    echo $articlecat['categorie'];
 
 
 ?>
@@ -70,7 +70,7 @@
 												<h2 class="font-weight-bold text-color-light line-height-2 text-5 mb-0"><?php echo $articledata['titre']; ?></h2>
 											</div>
 											<div class="thumb-info-show-more-content">
-												<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5"><?php echo html_entity_decode(substr($articledata['texte'],0,150)); ?>... </p>
+												<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5"><?php echo html_entity_decode(substr($articledata['texte'], 0, 150)); ?>... </p>
 											</div>
 										</div>
 									</div>
@@ -82,45 +82,41 @@
 
 
 <?php
-	// On créé la requête
-	// $req = "SELECT * FROM article WHERE valide = '1' ORDER BY ID LIMIT 3";
-	//  on envoie la requête
-	// $res = $connection->query($req);
+    // On créé la requête
+    // $req = "SELECT * FROM article WHERE valide = '1' ORDER BY ID LIMIT 3";
+    //  on envoie la requête
+    // $res = $connection->query($req);
 
 
-	// On créé la requête
-	$req = "SELECT * FROM article WHERE valide = '1' ORDER BY ID LIMIT 3";
-	//  on envoie la requête
-	$res = $co->prepare($req);
-	$res->execute();
-	$artValides = $res->fetchAll();
+    // On créé la requête
+    $req = "SELECT * FROM article WHERE valide = '1' ORDER BY ID LIMIT 3";
+    //  on envoie la requête
+    $res = $co->prepare($req);
+    $res->execute();
+    $artValides = $res->fetchAll();
 
-	foreach($artValides as $infos_actu ){
+    foreach ($artValides as $infos_actu) {
 
-		// var_dump($artValide);
-		$request="SELECT * FROM media WHERE id_article = :infos_actu";
-		$idart=$infos_actu['id'];
+        // var_dump($artValide);
+        $request="SELECT * FROM media WHERE id_article = :infos_actu";
+        $idart=$infos_actu['id'];
 
-		$media = $co->prepare($request);
-		$media->execute(array(
-			':infos_actu'=>$idart
-		));
-	$articlemedia = $media->fetch();
-	// var_dump($articlemedia);
+        $media = $co->prepare($request);
+        $media->execute(array(
+            ':infos_actu'=>$idart
+        ));
+        $articlemedia = $media->fetch();
+        // var_dump($articlemedia);
 
 
-// while ($infos_actu = mysqli_fetch_array($res)) {
+        // while ($infos_actu = mysqli_fetch_array($res)) {
 // 	$request="SELECT * FROM media WHERE id_article = :infos_actu";
 // 	$media = $connection->prepare($request);
 // 	$media->execute(array(
 // 		':infos_actu'=>$infos_actu['id']
 // 	));
 // $articlemedia = $media->fetch_array(MYSQLI_ASSOC);
-// on affiche les résultats
-
-
-
-?>
+// on affiche les résultats?>
 
 
 
@@ -134,7 +130,7 @@
 									<div class="col-sm-7 pl-sm-1">
 										<div class="thumb-info-caption-text">
 											<div class="thumb-info-type text-light text-uppercase d-inline-block bg-color-dark px-2 m-0 mb-1 float-none">
-												<a href="/article-<?php echo $infos_actu['id'];?>-<?php echo caractereValideUrl($infos_actu['titre']); ?>.html" class="text-decoration-none text-color-light">
+												<a href="/article-<?php echo $infos_actu['id']; ?>-<?php echo caractereValideUrl($infos_actu['titre']); ?>.html" class="text-decoration-none text-color-light">
 <?php
 // $request="SELECT * FROM categorie WHERE id = :infos_categorie";
 // $querycat = $connection->prepare($request);
@@ -146,17 +142,16 @@
 
 
 $request="SELECT * FROM categorie WHERE id = :infos_categorie";
-$querycat = $co->prepare($request);
-$querycat->execute(array(
-	':infos_categorie'=>$infos_actu['categorie']
+        $querycat = $co->prepare($request);
+        $querycat->execute(array(
+    ':infos_categorie'=>$infos_actu['categorie']
 ));
-$articlecat = $querycat->fetch();
-echo $articlecat['categorie'];
-?>
+        $articlecat = $querycat->fetch();
+        echo $articlecat['categorie']; ?>
 </a>
 											</div>
 											<h2 class="d-block line-height-2 text-4 text-dark font-weight-bold mt-1 mb-0">
-												<a href="/article-<?php echo $infos_actu['id'];?>-<?php echo caractereValideUrl($infos_actu['titre']); ?>.html" class="text-decoration-none text-color-dark text-color-hover-primary"> <?php echo $infos_actu['titre']; ?> </a>
+												<a href="/article-<?php echo $infos_actu['id']; ?>-<?php echo caractereValideUrl($infos_actu['titre']); ?>.html" class="text-decoration-none text-color-dark text-color-hover-primary"> <?php echo $infos_actu['titre']; ?> </a>
 											</h2>
 										</div>
 									</div>
@@ -164,7 +159,7 @@ echo $articlecat['categorie'];
 							</article>
 
 <?php
-}	
+    }
 ?>
 
 						</div>
@@ -192,14 +187,14 @@ echo $articlecat['categorie'];
 
 <?php
 $x = 0;
-while($x <= 4){
-if ($x == 1) {
-?>
+while ($x <= 4) {
+    if ($x == 1) {
+        ?>
 													<div class="col-lg-6 mb-4 pb-1">
 									<article class="thumb-info thumb-info-side-image thumb-info-no-zoom bg-transparent border-radius-0 pb-2 mb-2">
 										<div class="row">
 											<div class="col">
-												<a href="/article-<?php echo $articledata['id'];?>-<?php echo caractereValideUrl($articledata['titre']); ?>.html">
+												<a href="/article-<?php echo $articledata['id']; ?>-<?php echo caractereValideUrl($articledata['titre']); ?>.html">
 													<img src="img/blog/default/blog-67.jpg" class="img-fluid border-radius-0" alt="<?php echo $articledata['titre']; ?>">
 												</a>
 											</div>
@@ -212,19 +207,18 @@ if ($x == 1) {
 <?php
 // $info_m = $connection->query("SELECT * FROM article WHERE valide = '1' AND id = $x");
 // $infos_actu = mysqli_fetch_array($info_m, MYSQLI_ASSOC);
-// $date1 = date($infos_actu['publication']); 
-$request="SELECT * FROM article WHERE valide = '1' AND id = 89";
-$info_m = $co->prepare($request);
-$info_m->execute();
-$infos_actu =$info_m->fetch() ;
-$date1 = date($infos_actu['publication']); 
-// var_dump($infos_actu['publication']);
+// $date1 = date($infos_actu['publication']);
 
-
-
-?>
+//TODO: id a réparer
+    $id_art=86;
+        $request="SELECT * FROM article WHERE valide = '1' AND id = :id_art";
+        $info_m = $co->prepare($request);
+        $info_m->execute(array(':id_art'=>$id_art));
+        $infos_actu =$info_m->fetch() ;
+        $date1 = date($infos_actu['publication']);
+        // var_dump($infos_actu['publication']);?>
 																		
-														<a href="/article-<?php echo $articledata['id'];?>-<?php echo caractereValideUrl($articledata['titre']); ?>.html" class="text-decoration-none text-color-default"><?php echo strftime("%A %d %B %G", strtotime($date1));  ?></a>
+														<a href="/article-<?php echo $articledata['id']; ?>-<?php echo caractereValideUrl($articledata['titre']); ?>.html" class="text-decoration-none text-color-default"><?php echo strftime("%A %d %B %G", strtotime($date1)); ?></a>
 													</div>
 													<h4 class="d-block line-height-2 text-4 text-dark font-weight-bold mb-0">
 														<a href="blog-post.html" class="text-decoration-none text-color-dark text-color-hover-primary">bla blabla blabla blabla blabla blabla bla </a>
@@ -234,15 +228,15 @@ $date1 = date($infos_actu['publication']);
 										</div>
 									</article>
 								</div>
-<?php					
-}
+<?php
+    }
 
-if ($x == 2) {
-	echo '<div class="col-lg-6">';
-}
+    if ($x == 2) {
+        echo '<div class="col-lg-6">';
+    }
 
-if ($x >= 2) {
-?>
+    if ($x >= 2) {
+        ?>
 			
 	<article class="thumb-info thumb-info-side-image thumb-info-no-zoom bg-transparent border-radius-0 pb-4 mb-2">
 										<div class="row align-items-center pb-1">
@@ -254,7 +248,7 @@ if ($x >= 2) {
 											<div class="col-sm-8 pl-sm-0">
 												<div class="thumb-info-caption-text">
 													<div class="d-inline-block text-default text-1 float-none">
-														<a href="blog-post.html" class="text-decoration-none text-color-default"><?php echo strftime("%A %d %B %G", strtotime($date1));  ?></a>
+														<a href="blog-post.html" class="text-decoration-none text-color-default"><?php echo strftime("%A %d %B %G", strtotime($date1)); ?></a>
 													</div>
 													<h4 class="d-block pb-2 line-height-2 text-3 text-dark font-weight-bold mb-0">
 														<a href="blog-post.html" class="text-decoration-none text-color-dark text-color-hover-primary">toc toc toctoc toc toctoc toc toctoc toc toc </a>
@@ -265,12 +259,12 @@ if ($x >= 2) {
 									</article>
 
 <?php
-}
+    }
 
-if ($x == 4) {
-	echo '</div>';
-}					
-$x++;
+    if ($x == 4) {
+        echo '</div>';
+    }
+    $x++;
 }
 ?>
 								
@@ -301,9 +295,9 @@ echo $articlecat['categorie'];
 
 <?php
 $x = 0;
-while($x <= 4){
-if ($x == 1) {
-?>
+while ($x <= 4) {
+    if ($x == 1) {
+        ?>
 													<div class="col-lg-6 mb-4 pb-1">
 									<article class="thumb-info thumb-info-side-image thumb-info-no-zoom bg-transparent border-radius-0 pb-2 mb-2">
 										<div class="row">
@@ -327,15 +321,15 @@ if ($x == 1) {
 										</div>
 									</article>
 								</div>
-<?php					
-}
+<?php
+    }
 
-if ($x == 2) {
-	echo '<div class="col-lg-6">';
-}
+    if ($x == 2) {
+        echo '<div class="col-lg-6">';
+    }
 
-if ($x >= 2) {
-?>
+    if ($x >= 2) {
+        ?>
 			
 	<article class="thumb-info thumb-info-side-image thumb-info-no-zoom bg-transparent border-radius-0 pb-4 mb-2">
 										<div class="row align-items-center pb-1">
@@ -358,12 +352,12 @@ if ($x >= 2) {
 									</article>
 
 <?php
-}
+    }
 
-if ($x == 4) {
-	echo '</div>';
-}					
-$x++;
+    if ($x == 4) {
+        echo '</div>';
+    }
+    $x++;
 }
 ?>
 								
@@ -391,9 +385,9 @@ echo $articlecat['categorie'];
 
 <?php
 $x = 0;
-while($x <= 4){
-if ($x == 1) {
-?>
+while ($x <= 4) {
+    if ($x == 1) {
+        ?>
 													<div class="col-lg-6 mb-4 pb-1">
 									<article class="thumb-info thumb-info-side-image thumb-info-no-zoom bg-transparent border-radius-0 pb-2 mb-2">
 										<div class="row">
@@ -417,15 +411,15 @@ if ($x == 1) {
 										</div>
 									</article>
 								</div>
-<?php					
-}
+<?php
+    }
 
-if ($x == 2) {
-	echo '<div class="col-lg-6">';
-}
+    if ($x == 2) {
+        echo '<div class="col-lg-6">';
+    }
 
-if ($x >= 2) {
-?>
+    if ($x >= 2) {
+        ?>
 			
 	<article class="thumb-info thumb-info-side-image thumb-info-no-zoom bg-transparent border-radius-0 pb-4 mb-2">
 										<div class="row align-items-center pb-1">
@@ -448,12 +442,12 @@ if ($x >= 2) {
 									</article>
 
 <?php
-}
+    }
 
-if ($x == 4) {
-	echo '</div>';
-}					
-$x++;
+    if ($x == 4) {
+        echo '</div>';
+    }
+    $x++;
 }
 ?>
 								
@@ -778,7 +772,7 @@ $x++;
   // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   // curl_setopt($ch, CURLOPT_TIMEOUT, 20);
   // $result = curl_exec($ch);
-  // curl_close($ch); 
+  // curl_close($ch);
   // return $result;
   // }
 
@@ -809,12 +803,11 @@ $x++;
 								
 								<?php
 //Get all country data
-$query = $connection->query("SELECT * FROM categorie");
-while($row = $query->fetch_assoc()){ 
-echo '<option value="'.$row['id'].'">'.$row['categorie'].'</option>';
-echo "<a href=\"#$row[id]\"><span class=\"badge badge-dark bg-color-black badge-sm py-2 mr-1 mb-2 text-uppercase  px-2 py-1 mr-1\">$row[categorie]</span></a>";
-
-}
+	$query = $connection->query("SELECT * FROM categorie");
+	while ($row = $query->fetch_assoc()) {
+		echo '<option value="'.$row['id'].'">'.$row['categorie'].'</option>';
+		echo "<a href=\"#$row[id]\"><span class=\"badge badge-dark bg-color-black badge-sm py-2 mr-1 mb-2 text-uppercase  px-2 py-1 mr-1\">$row[categorie]</span></a>";
+	}
 
 ?>
 
