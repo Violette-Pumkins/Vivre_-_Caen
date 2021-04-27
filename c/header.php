@@ -35,7 +35,7 @@
 							
 								<div class="header-row h-100">
 									<a href="#" target="_blank" class="py-3 d-block">
-										<img alt="Vivre à Caen - Le magazine" class="img-fluid pl-3" src="img/blog/blog-2.jpg" />
+										<img alt="Vivre à Caen - Le magazine" class="img-fluid pl-3" src="img/blog/blog-ad-2.jpg" />
 									</a>
 								</div>
 							</div>
@@ -85,14 +85,15 @@ while($row = $query->fetch_assoc()){
 $query2 = $connection->query("SELECT * FROM article WHERE categorie = '$row[id]'");
 $row_cnt = mysqli_num_rows($query2);
 
-$categorie = caractereValideUrl($row['categorie']);
+$categorie = caractereValideUrl($row[categorie]);
 //echo '<option value="'.$row['id'].'">'.$row['categorie'].'</option>';
 echo "<li><a class=\"dropdown-item\" href=\"rubrique-$row[id]-$categorie.html\">$row[categorie] ($row_cnt)</a></li>";
 
 }
 
 ?>
-
+												
+																	 																 
 																</ul>
 															</li>
 															<li class="dropdown dropdown-full-color dropdown-light">
